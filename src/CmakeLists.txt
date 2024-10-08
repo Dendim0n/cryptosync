@@ -1,0 +1,15 @@
+find_package(Boost REQUIRED COMPONENTS filesystem system)
+find_package(CryptoPP REQUIRED)
+find_package(spdlog REQUIRED)
+
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${CRYPTOPP_INCLUDE_DIRS})
+include_directories(${SPDLOG_INCLUDE_DIRS})
+
+# 库
+add_library(FileSyncTool STATIC FileSystemWatcher.cpp)
+target_link_libraries(FileSyncTool ${Boost_LIBRARIES} ${CRYPTOPP_LIBRARIES} spdlog::spdlog)
+
+# 安装目标
+install(TARGETS FileSyncTool DESTINATION lib)
+install(FILES ${CMAKE_SOURCE_DIR}/include/FileSystemWatcher.h DESTINATION include)
